@@ -1,0 +1,184 @@
+[
+    {
+        "id": "8ab3a01d053a29ac",
+        "type": "tab",
+        "label": "Carregar Planilha",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6626706409607a50",
+        "type": "function",
+        "z": "8ab3a01d053a29ac",
+        "name": "Carrega Nome do Serviço",
+        "func": "msg.payload = 'AC - BRASILÉIA - CENTRO ESPECIALIZADO DE ATENDIMENTO À MULHER (CEAM) - BRASILÉIA';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "816e56b93d428eb8"
+            ]
+        ]
+    },
+    {
+        "id": "36e2c5de46dc0c71",
+        "type": "debug",
+        "z": "8ab3a01d053a29ac",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "6c2c7f57e065edb3",
+        "type": "inject",
+        "z": "8ab3a01d053a29ac",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "6626706409607a50",
+                "05bc85ca49a91f05"
+            ]
+        ]
+    },
+    {
+        "id": "816e56b93d428eb8",
+        "type": "function",
+        "z": "8ab3a01d053a29ac",
+        "name": "Limpa Nome do Serviço",
+        "func": "\nvar ret = msg.payload.split('-');\nif (ret.length > 2){\n    ret = ret[2].trim();\n}\nmsg.payload = ret;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 100,
+        "wires": [
+            [
+                "36e2c5de46dc0c71"
+            ]
+        ]
+    },
+    {
+        "id": "3d20f8b735eb1ade",
+        "type": "split",
+        "z": "8ab3a01d053a29ac",
+        "name": "",
+        "splt": "-",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 810,
+        "y": 20,
+        "wires": [
+            [
+                "36e2c5de46dc0c71"
+            ]
+        ]
+    },
+    {
+        "id": "05bc85ca49a91f05",
+        "type": "function",
+        "z": "8ab3a01d053a29ac",
+        "name": "Carregar os dados em um Banco de Dados",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 220,
+        "wires": [
+            [
+                "16d8231547f49195"
+            ]
+        ]
+    },
+    {
+        "id": "16d8231547f49195",
+        "type": "function",
+        "z": "8ab3a01d053a29ac",
+        "name": "Carregar a tupla do BD",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 220,
+        "wires": [
+            [
+                "084a020aef1c4a4b",
+                "e3af3375aecf7337"
+            ]
+        ]
+    },
+    {
+        "id": "084a020aef1c4a4b",
+        "type": "link call",
+        "z": "8ab3a01d053a29ac",
+        "name": "",
+        "links": [
+            "4b6bf5fa74f954b4"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1140,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3af3375aecf7337",
+        "type": "link call",
+        "z": "8ab3a01d053a29ac",
+        "name": "",
+        "links": [
+            "50995685cca1e938"
+        ],
+        "linkType": "static",
+        "timeout": "30",
+        "x": 1180,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    }
+]
