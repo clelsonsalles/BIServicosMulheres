@@ -1,0 +1,324 @@
+[
+    {
+        "id": "e0b7f874cc0843e8",
+        "type": "tab",
+        "label": "CNDM - Mapa Colaborativo",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4396626d44b095c6",
+        "type": "XLSX-to-json",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carregar a Planilha",
+        "filepath": "C:\\Users\\clelson.rodrigues\\Downloads\\mapa.xlsx",
+        "rangecell": "",
+        "columnkey": "",
+        "sheet": "Sheet1",
+        "x": 210,
+        "y": 140,
+        "wires": [
+            [
+                "bb10f6304eed647c"
+            ]
+        ]
+    },
+    {
+        "id": "f1167b4f5f0ffffb",
+        "type": "inject",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "bd105daeaff3d749"
+            ]
+        ]
+    },
+    {
+        "id": "bb10f6304eed647c",
+        "type": "split",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "fad76b4d9a7ca650"
+            ]
+        ]
+    },
+    {
+        "id": "fad76b4d9a7ca650",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carrega a coluna UF",
+        "func": "msg.uf = msg.payload['Unidade da Federação - UF'];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 140,
+        "wires": [
+            [
+                "990d2d4fcf6b2072"
+            ]
+        ]
+    },
+    {
+        "id": "bd105daeaff3d749",
+        "type": "http request",
+        "z": "e0b7f874cc0843e8",
+        "name": "Buscar regiões no IBGE",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "df6c12c754305a9c"
+            ]
+        ]
+    },
+    {
+        "id": "990d2d4fcf6b2072",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Definir a região da UF informada",
+        "func": "var array = msg.regioes;\n\nfor (let index = 0; index < array.length; index++) {\n    const unidadeFederacao = array[index];\n    if (msg.uf == unidadeFederacao.nome){\n        msg.ufObj = unidadeFederacao;\n        break;\n    }\n    \n}\nif (msg.ufObj === undefined){\n    //msg.erro = msg.planilha;\n    msg.erros.push(msg.payload);\n}else{\n\n    msg.payload.regiao = new Object();\n\n    Object.assign(msg.payload.regiao, msg.ufObj.regiao)\n}\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 140,
+        "wires": [
+            [
+                "5b11ca1ab87d42bf"
+            ]
+        ]
+    },
+    {
+        "id": "42db59401a8ad96e",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 9",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "regioes",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "df6c12c754305a9c",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "function 12",
+        "func": "msg.regioes = msg.payload;\n\nmsg.erros = [];\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 590,
+        "y": 60,
+        "wires": [
+            [
+                "4396626d44b095c6"
+            ]
+        ]
+    },
+    {
+        "id": "d1aaa62993ce5b90",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "function 13",
+        "func": "var array = msg.payload;\nmsg.nuvem = [];\nvar nuvemPalavras = '';\n\nfor (let index = 0; index < array.length; index++) {\n    var element = array[index];\n    nuvemPalavras = nuvemPalavras + ' ' + element.FocoAtuacao;\n    \n}\nmsg.payload = nuvemPalavras.replaceAll(' ', '\\n').replaceAll(',', '').replaceAll('.', '').replaceAll(';', '').replaceAll('!', '').replaceAll('?', '').replaceAll('\"', '').replaceAll('\\'', '').replaceAll('#', '').replaceAll('@', '').replaceAll('&', '').replaceAll('(', '').replaceAll(')', '');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "a0f472f25916abc5",
+                "164e53294acebd46",
+                "42db59401a8ad96e",
+                "fdef1cae3a798249",
+                "434fb0b5cef523f6"
+            ]
+        ]
+    },
+    {
+        "id": "a0f472f25916abc5",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 10",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "erros",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "5b11ca1ab87d42bf",
+        "type": "join",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": "false",
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "d1aaa62993ce5b90"
+            ]
+        ]
+    },
+    {
+        "id": "164e53294acebd46",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 12",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "fdef1cae3a798249",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 13",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "nuvemPalavras",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "a6278f318481f3b0",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "nuvem",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "434fb0b5cef523f6",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Limpando",
+        "func": "const listaIgnoradas = ['a', 'o', 'e', 'é', 'as', 'os', 'de', 'da', 'do', 'das', 'dos','se', 'para', 'com', 'esse', 'essa', 'este', 'esta', 'um', 'uns', 'uma', 'umas',\n    'na', 'no', 'nas', 'nos', 'mas', '', 'pelo', 'por', 'pra', 'entre', 'seu', 'sua', 'suas', 'seus', 'aquele', 'aqueles', 'nós', 'vós', 'nosso', 'vosso',\n    'ele', 'eles', 'ela', 'elas', 'tem', 'tens', 'tinha', 'todo', 'todos', 'forma', 'através', 'pela', 'pelos', 'até', 'assim', \n    'em', 'tendo', 'como', 'que', 'há', 'sendo', 'outro', 'outra', 'dentre', 'outros', 'outras', 'à', 'às', 'ao', 'aos'];\n\nvar palavras = ('' + msg.payload).split('\\n');\n\nfor (let index = 0; index < palavras.length; index++) {\n    const palavra = palavras[index].trim().toUpperCase();\n\n    var array = msg.nuvem;\n    var encontrado = false;\n    for (let index = 0; index < array.length; index++) {\n        var element = array[index];\n        \n        if (element.texto == palavra){\n            element.quantidade = 1+ element.quantidade;\n            encontrado = true;\n            break;\n        }\n    }\n    if (!encontrado){\n        if (validarListaIgnorados(palavra)){\n            var novaPalavra = { texto: palavra, quantidade: 1 };\n\n            msg.nuvem.push(novaPalavra);\n\n        }\n    }\n\n}\n\nfunction validarListaIgnorados(palavra){\n\n    for (let index = 0; index < listaIgnoradas.length; index++) {\n        const ignorar = listaIgnoradas[index].toUpperCase();\n        if (ignorar == palavra)\n            return false;\n    }\n    return true;\n}\n\nvar arrayPalavras = [];\nfor (let index = 0; index < msg.nuvem.length; index++) {\n    const element = msg.nuvem[index];\n    arrayPalavras.push(element.texto);\n}\narrayPalavras.sort();\nmsg.palavrasOrdem = arrayPalavras;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 220,
+        "wires": [
+            [
+                "a6278f318481f3b0",
+                "8c76c07f3fc732b7"
+            ]
+        ]
+    },
+    {
+        "id": "8c76c07f3fc732b7",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "palavrasOrdem",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 280,
+        "wires": []
+    }
+]
