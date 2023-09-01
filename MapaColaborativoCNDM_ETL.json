@@ -17,7 +17,7 @@
         "columnkey": "",
         "sheet": "Sheet1",
         "x": 210,
-        "y": 140,
+        "y": 160,
         "wires": [
             [
                 "bb10f6304eed647c"
@@ -46,7 +46,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 120,
-        "y": 60,
+        "y": 80,
         "wires": [
             [
                 "bd105daeaff3d749"
@@ -65,7 +65,7 @@
         "stream": false,
         "addname": "",
         "x": 410,
-        "y": 140,
+        "y": 160,
         "wires": [
             [
                 "fad76b4d9a7ca650"
@@ -84,7 +84,7 @@
         "finalize": "",
         "libs": [],
         "x": 600,
-        "y": 140,
+        "y": 160,
         "wires": [
             [
                 "990d2d4fcf6b2072"
@@ -108,7 +108,7 @@
         "senderr": false,
         "headers": [],
         "x": 370,
-        "y": 60,
+        "y": 80,
         "wires": [
             [
                 "df6c12c754305a9c"
@@ -127,10 +127,11 @@
         "finalize": "",
         "libs": [],
         "x": 890,
-        "y": 140,
+        "y": 160,
         "wires": [
             [
-                "5b11ca1ab87d42bf"
+                "5b11ca1ab87d42bf",
+                "e26c7cd2fd8bd6a9"
             ]
         ]
     },
@@ -138,7 +139,7 @@
         "id": "42db59401a8ad96e",
         "type": "debug",
         "z": "e0b7f874cc0843e8",
-        "name": "debug 9",
+        "name": "regioes",
         "active": false,
         "tosidebar": true,
         "console": false,
@@ -147,7 +148,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
+        "x": 720,
         "y": 360,
         "wires": []
     },
@@ -155,15 +156,15 @@
         "id": "df6c12c754305a9c",
         "type": "function",
         "z": "e0b7f874cc0843e8",
-        "name": "function 12",
+        "name": "Carregar Regiões",
         "func": "msg.regioes = msg.payload;\n\nmsg.erros = [];\n\nreturn msg;\n",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 590,
-        "y": 60,
+        "x": 610,
+        "y": 80,
         "wires": [
             [
                 "4396626d44b095c6"
@@ -174,14 +175,14 @@
         "id": "d1aaa62993ce5b90",
         "type": "function",
         "z": "e0b7f874cc0843e8",
-        "name": "function 13",
-        "func": "var array = msg.payload;\nmsg.nuvem = [];\nvar nuvemPalavras = '';\n\nfor (let index = 0; index < array.length; index++) {\n    var element = array[index];\n    nuvemPalavras = nuvemPalavras + ' ' + element.FocoAtuacao;\n    \n}\nmsg.payload = nuvemPalavras.replaceAll(' ', '\\n').replaceAll(',', '').replaceAll('.', '').replaceAll(';', '').replaceAll('!', '').replaceAll('?', '').replaceAll('\"', '').replaceAll('\\'', '').replaceAll('#', '').replaceAll('@', '').replaceAll('&', '').replaceAll('(', '').replaceAll(')', '');\nreturn msg;",
+        "name": "Carrega nuvens de palavras",
+        "func": "var array = msg.payload;\nmsg.dadosPlanilha = msg.payload;\nmsg.nuvem = [];\nvar nuvemPalavras = '';\n\nfor (let index = 0; index < array.length; index++) {\n    var element = array[index];\n    nuvemPalavras = nuvemPalavras + ' ' + element.FocoAtuacao;\n    \n}\nmsg.payload = nuvemPalavras.replaceAll(' ', '\\n').replaceAll(',', '').replaceAll('.', '').replaceAll(';', '').replaceAll('!', '').replaceAll('?', '').replaceAll('\"', '').replaceAll('\\'', '').replaceAll('#', '').replaceAll('@', '').replaceAll('&', '').replaceAll('(', '');\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 350,
+        "x": 220,
         "y": 220,
         "wires": [
             [
@@ -189,7 +190,7 @@
                 "164e53294acebd46",
                 "42db59401a8ad96e",
                 "fdef1cae3a798249",
-                "434fb0b5cef523f6"
+                "cd4b8314added078"
             ]
         ]
     },
@@ -197,7 +198,7 @@
         "id": "a0f472f25916abc5",
         "type": "debug",
         "z": "e0b7f874cc0843e8",
-        "name": "debug 10",
+        "name": "erros",
         "active": false,
         "tosidebar": true,
         "console": false,
@@ -206,7 +207,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
+        "x": 710,
         "y": 280,
         "wires": []
     },
@@ -226,8 +227,8 @@
         "timeout": "",
         "count": "",
         "reduceRight": false,
-        "x": 170,
-        "y": 220,
+        "x": 1150,
+        "y": 160,
         "wires": [
             [
                 "d1aaa62993ce5b90"
@@ -238,15 +239,16 @@
         "id": "164e53294acebd46",
         "type": "debug",
         "z": "e0b7f874cc0843e8",
-        "name": "debug 12",
+        "name": "Payload",
         "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
+        "x": 720,
         "y": 320,
         "wires": []
     },
@@ -254,7 +256,7 @@
         "id": "fdef1cae3a798249",
         "type": "debug",
         "z": "e0b7f874cc0843e8",
-        "name": "debug 13",
+        "name": "Nuvem Palavras",
         "active": false,
         "tosidebar": true,
         "console": false,
@@ -263,7 +265,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 600,
+        "x": 740,
         "y": 400,
         "wires": []
     },
@@ -271,8 +273,8 @@
         "id": "a6278f318481f3b0",
         "type": "debug",
         "z": "e0b7f874cc0843e8",
-        "name": "debug 14",
-        "active": true,
+        "name": "Nuvem",
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -280,27 +282,29 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 980,
-        "y": 220,
+        "x": 1120,
+        "y": 280,
         "wires": []
     },
     {
         "id": "434fb0b5cef523f6",
         "type": "function",
         "z": "e0b7f874cc0843e8",
-        "name": "Limpando",
-        "func": "const listaIgnoradas = ['a', 'o', 'e', 'é', 'as', 'os', 'de', 'da', 'do', 'das', 'dos','se', 'para', 'com', 'esse', 'essa', 'este', 'esta', 'um', 'uns', 'uma', 'umas',\n    'na', 'no', 'nas', 'nos', 'mas', '', 'pelo', 'por', 'pra', 'entre', 'seu', 'sua', 'suas', 'seus', 'aquele', 'aqueles', 'nós', 'vós', 'nosso', 'vosso',\n    'ele', 'eles', 'ela', 'elas', 'tem', 'tens', 'tinha', 'todo', 'todos', 'forma', 'através', 'pela', 'pelos', 'até', 'assim', \n    'em', 'tendo', 'como', 'que', 'há', 'sendo', 'outro', 'outra', 'dentre', 'outros', 'outras', 'à', 'às', 'ao', 'aos'];\n\nvar palavras = ('' + msg.payload).split('\\n');\n\nfor (let index = 0; index < palavras.length; index++) {\n    const palavra = palavras[index].trim().toUpperCase();\n\n    var array = msg.nuvem;\n    var encontrado = false;\n    for (let index = 0; index < array.length; index++) {\n        var element = array[index];\n        \n        if (element.texto == palavra){\n            element.quantidade = 1+ element.quantidade;\n            encontrado = true;\n            break;\n        }\n    }\n    if (!encontrado){\n        if (validarListaIgnorados(palavra)){\n            var novaPalavra = { texto: palavra, quantidade: 1 };\n\n            msg.nuvem.push(novaPalavra);\n\n        }\n    }\n\n}\n\nfunction validarListaIgnorados(palavra){\n\n    for (let index = 0; index < listaIgnoradas.length; index++) {\n        const ignorar = listaIgnoradas[index].toUpperCase();\n        if (ignorar == palavra)\n            return false;\n    }\n    return true;\n}\n\nvar arrayPalavras = [];\nfor (let index = 0; index < msg.nuvem.length; index++) {\n    const element = msg.nuvem[index];\n    arrayPalavras.push(element.texto);\n}\narrayPalavras.sort();\nmsg.palavrasOrdem = arrayPalavras;\n\nreturn msg;",
+        "name": "Criando Grupos",
+        "func": "\n// Montagem dos grupos de palavras\nvar grupoPalavras = [];\n\nfor (let id = 0; id < msg.nuvem.length; id++) {\n    const tresPalavra = msg.nuvem[id].texto.substring(0, 3);\n    var encontrouGrupo = false;\n    for (let idGrupo = 0; idGrupo < grupoPalavras.length; idGrupo++) {\n        var grupo = grupoPalavras[idGrupo];\n        if (grupo.grupo == tresPalavra){\n            encontrouGrupo = true;\n            break;\n        }\n    }\n    if (!encontrouGrupo){\n        var novoGrupo = { grupo: tresPalavra, quantidadeObjetos: 0};\n        novoGrupo.palavra = msg.nuvem[id];\n        grupoPalavras.push(novoGrupo);\n    }\n}\n/*\nvar palavrasSugeridas = ['Empregad', 'domest', 'Violen', 'Politic', 'Profissiona', 'sex', 'Mulher', 'lesbica', 'bissexua', 'Trans',\n    'Saude', 'Direito', 'reprodut', 'obstetric', 'Cigan', 'Pescado', 'Agri', 'famil', 'Escalpela', 'Part', 'Migr', 'Meio', 'ambiente'];\n\nfor (let index = 0; index < palavrasSugeridas.length; index++) {\n    var element = palavrasSugeridas[index];\n    grupoPalavras.push(element.toUpperCase);\n    \n}\n*/\n\n\nfor (let id = 0; id < msg.nuvem.length; id++) {\n    const tresPalavra = msg.nuvem[id].texto.substring(0, 3);\n    var encontrouGrupo = false;\n    for (let idGrupo = 0; idGrupo < grupoPalavras.length; idGrupo++) {\n        var grupo = grupoPalavras[idGrupo];\n        if (grupo.grupo == tresPalavra) {\n            //encontrou\n            grupo.quantidadeObjetos = grupo.quantidadeObjetos + 1;\n            if (grupo.palavra && grupo.palavra.length > 0) {\n                grupo.palavra.push(msg.nuvem[id]);\n                grupo.quantidadePalavras = grupo.quantidadePalavras + msg.nuvem[id].quantidade;\n            } else {\n                grupo.palavra = [];\n                grupo.palavra.push(msg.nuvem[id]);\n                grupo.quantidadePalavras = msg.nuvem[id].quantidade;\n\n            }\n            encontrouGrupo = true;\n            break;\n        }\n    }\n}\n\n\nmsg.grupo = grupoPalavras;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
+        "x": 860,
         "y": 220,
         "wires": [
             [
                 "a6278f318481f3b0",
-                "8c76c07f3fc732b7"
+                "8c76c07f3fc732b7",
+                "85886b6bf09798c1",
+                "b64aacbf509f61c0"
             ]
         ]
     },
@@ -308,8 +312,8 @@
         "id": "8c76c07f3fc732b7",
         "type": "debug",
         "z": "e0b7f874cc0843e8",
-        "name": "debug 15",
-        "active": true,
+        "name": "Palavras em Ordem",
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -317,8 +321,750 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 980,
-        "y": 280,
+        "x": 1160,
+        "y": 320,
         "wires": []
+    },
+    {
+        "id": "85886b6bf09798c1",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "Grupo",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "grupo",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1110,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "4b6b0ad7e5d970d1",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "HTTP Parte 1",
+        "field": "httpParte01",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "<html>\n  <head>\n    <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>\n    <script type=\"text/javascript\">\n      google.charts.load('current', {'packages':['treemap']});\n      google.charts.setOnLoadCallback(drawChart);\n",
+        "output": "str",
+        "x": 100,
+        "y": 300,
+        "wires": [
+            [
+                "c2a31c9ef76263a1"
+            ]
+        ]
+    },
+    {
+        "id": "54241e7b9c72b975",
+        "type": "http response",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 490,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "7c738a20aab9313b",
+        "type": "http in",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "url": "/mapaColaborativo",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "bd105daeaff3d749"
+            ]
+        ]
+    },
+    {
+        "id": "c2a31c9ef76263a1",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "HTTP Parte 2",
+        "field": "httpParte02",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "\n        tree = new google.visualization.TreeMap(document.getElementById('chart_div'));\n\n        var options = {\n          minColor: '#e7711c',\n          midColor: '#fff',\n          maxColor: '#4374e0',\n          showScale: true,\n          generateTooltip: showFullTooltip\n        };\n\n        tree.draw(data, options);\n        \n        function showFullTooltip(row, size, value) {\n          var retorno = \n               '<div style=\"background:#fd9; padding:10px; border-style:solid\">' +\n                '<span style=\"font-family:Courier\"><b>' + data.getValue(row, 0) + '</b> ' + \n                '<br><b>Total de Ocorrências: </b>' + data.getValue(row, 2) ;\n          if (data.getValue(row, 1) === 'Global'){\n            retorno +=  '<br><b>Total de Palavras: </b>'  + data.getValue(row, 3) ;\n          }else{\n\n          }\n          retorno +=  ' </div>'\n          return retorno;\n        }\n\n      }\n    </script>\n  </head>\n  <body>\n    <div id=\"chart_div\" style=\"width: 1800px; height: 1000px;\"></div>\n  </body>\n</html>\n",
+        "output": "str",
+        "x": 300,
+        "y": 300,
+        "wires": [
+            [
+                "701abf12c85f9f49"
+            ]
+        ]
+    },
+    {
+        "id": "701abf12c85f9f49",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "HTTP Parte Dinamica",
+        "func": "\nvar dadosFormatados = \" ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'], \";\ndadosFormatados += \" ['Global',    null,                 0,                               0]\";\nfor (let index = 0; index < msg.grupo.length; index++) {\n    const grupo = msg.grupo[index];\n    dadosFormatados += \", [ '\" + grupo.grupo + \"', 'Global', \" + grupo.quantidadePalavras + ', ' + grupo.quantidadeObjetos + ']';  \n}\n\nfor (let index = 0; index < msg.grupo.length; index++) {\n    const grupo = msg.grupo[index];\n//    if (typeof grupo.palavra !== \"undefined\"){\n        for (let indexPalavra = 0; indexPalavra < grupo.palavra.length; indexPalavra++) {\n            const palavra = grupo.palavra[indexPalavra];\n            dadosFormatados += \", [ '.\" + palavra.texto + \"', '\" + grupo.grupo + \"', \" + palavra.quantidade + ', ' + palavra.quantidade + ']';\n        }\n//    }\n\n}\n\n\n\nvar parteDinamica = 'function drawChart() { \\n\\t' + 'var data = google.visualization.arrayToDataTable([\\n\\n' + dadosFormatados + '\\n\\n ]);';\n\nmsg.payload = msg.httpParte01 + parteDinamica + msg.httpParte02;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 360,
+        "wires": [
+            [
+                "54241e7b9c72b975"
+            ]
+        ]
+    },
+    {
+        "id": "cd4b8314added078",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Limpar, Contar e Ordenar palavras",
+        "func": "\n//Limpar dados \nconst listaIgnoradas = ['a', 'o', 'e', 'é', 'as', 'os', 'de', 'da', 'do', 'das', 'dos', 'se', 'para', 'com', 'esse', 'essa', 'este', 'esta', 'um', 'uns', 'uma', 'umas',\n    'na', 'no', 'nas', 'nos', 'mas', '', 'pelo', 'por', 'pra', 'entre', 'seu', 'sua', 'suas', 'seus', 'aquele', 'aqueles', 'nós', 'vós', 'nosso', 'vosso',\n    'ele', 'eles', 'ela', 'elas', 'tem', 'tens', 'tinha', 'todo', 'todos', 'forma', 'através', 'pela', 'pelos', 'até', 'assim',\n    'em', 'tendo', 'como', 'que', 'há', 'sendo', 'outro', 'outra', 'dentre', 'outros', 'outras', 'à', 'às', 'ao', 'aos'];\n\nmsg.payload = msg.payload.toUpperCase().replaceAll('Á', 'A').replaceAll('É', 'E').replaceAll('Ã', 'A').replaceAll('Õ', 'O').replaceAll('Ú', 'U').\n    replaceAll('Â', 'A').replaceAll('Ê', 'E').replaceAll('Í', 'I').replaceAll('Ç', 'C').replaceAll('Ó', 'O').replaceAll('Ô', 'O').replaceAll('/', '').\n    replaceAll('-', '').replaceAll(')', '').replaceAll('(', '').replaceAll('\"', '').replaceAll(':', '').replaceAll(',', '').replaceAll(';', '').replaceAll('”', '');\n\n// Contar a quantidade de vezes que a palavra se repete\nvar palavras = ('' + msg.payload).split('\\n');\nfor (let index = 0; index < palavras.length; index++) {\n    const palavra = palavras[index].trim().toUpperCase();\n\n    var array = msg.nuvem;\n    var encontrado = false;\n    for (let index = 0; index < array.length; index++) {\n        var element = array[index];\n\n        if (element.texto == palavra) {\n            element.quantidade = 1 + element.quantidade;\n            encontrado = true;\n            break;\n        }\n    }\n    if (!encontrado) {\n        if (validarListaIgnorados(palavra)) {\n            var novaPalavra = { texto: palavra, quantidade: 1 };\n\n            msg.nuvem.push(novaPalavra);\n\n        }\n    }\n\n}\n\nfunction validarListaIgnorados(palavra) {\n\n    for (let index = 0; index < listaIgnoradas.length; index++) {\n        const ignorar = listaIgnoradas[index].toUpperCase();\n        if (ignorar == palavra)\n            return false;\n    }\n    return true;\n}\n\n\n\n//Ordenar as palavras\nvar arrayPalavras = [];\nfor (let index = 0; index < msg.nuvem.length; index++) {\n    const element = msg.nuvem[index];\n    arrayPalavras.push(element.texto);\n}\narrayPalavras.sort();\nmsg.palavrasOrdem = arrayPalavras;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 220,
+        "wires": [
+            [
+                "434fb0b5cef523f6"
+            ]
+        ]
+    },
+    {
+        "id": "6a5dca14554042fb",
+        "type": "http in",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "url": "/template",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b64aacbf509f61c0",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "Parte 01",
+        "field": "template01",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\" />\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" />\n        <meta name=\"description\" content=\"\" />\n        <meta name=\"author\" content=\"\" />\n        <title>Dashboard - Mapa Colaborativo</title>\n\n        <link href=\"https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css\" rel=\"stylesheet\" />\n\n        <script src=\"https://use.fontawesome.com/releases/v6.3.0/js/all.js\" crossorigin=\"anonymous\"></script>\n\n\n    ",
+        "output": "str",
+        "x": 1080,
+        "y": 540,
+        "wires": [
+            [
+                "20afde6dfc001de4"
+            ]
+        ]
+    },
+    {
+        "id": "8be11436b82c3c8d",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "Parte 02",
+        "field": "template02",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "\n                                </table>\n                            </div>\n                        </div>\n\n\n                        <div class=\"card mb-4\">\n                            <div class=\"card-header\">\n                                <i class=\"fas fa-table me-1\"></i>\n                                Mapa de ocorrências de palavras\n                            </div>\n                            <div class=\"card-body\">\n                                <div id=\"chart_div\" style=\"width: 1800px; height: 1000px;\"></div>\n                            </div>\n                        </div>\n\n                    </div>\n                </main>\n                <footer class=\"py-4 bg-light mt-auto\">\n                    <div class=\"container-fluid px-4\">\n                        <div class=\"d-flex align-items-center justify-content-between small\">\n                            <div class=\"text-muted\">Copyright &copy; Coordenação de Tecnologia da Informação - Ministério das Mulheres</div>\n                            \n                        </div>\n                    </div>\n                </footer>\n            </div>\n        </div>\n        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js\" crossorigin=\"anonymous\"></script>\n",
+        "output": "str",
+        "x": 340,
+        "y": 680,
+        "wires": [
+            [
+                "bc55768bf720e545"
+            ]
+        ]
+    },
+    {
+        "id": "9bf57032315d2050",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "HTML Final - templates 1 e 2",
+        "func": "//msg.htmlFinal += msg.htmlDinamico +\nmsg.htmlFinal += \n    msg.template011 + msg.template01 +\n    msg.htmlTable + msg.template02;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 680,
+        "wires": [
+            [
+                "64a10bdbd00d1ce7"
+            ]
+        ]
+    },
+    {
+        "id": "de7b5c647424ea6f",
+        "type": "http response",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1190,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "20afde6dfc001de4",
+        "type": "file in",
+        "z": "e0b7f874cc0843e8",
+        "name": "CSS",
+        "filename": "C:/testes/css/styles.css",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 1270,
+        "y": 540,
+        "wires": [
+            [
+                "0aa90a40244d68f3",
+                "74e4e7732d5c4c1b"
+            ]
+        ]
+    },
+    {
+        "id": "20e1172439376d44",
+        "type": "inject",
+        "z": "e0b7f874cc0843e8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1100,
+        "y": 480,
+        "wires": [
+            [
+                "20afde6dfc001de4"
+            ]
+        ]
+    },
+    {
+        "id": "0aa90a40244d68f3",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 17",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1220,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "9eef83e95a0149ef",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "Parte 01-1",
+        "field": "template011",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "</head>\n    <body >\n        \n        <div id=\"layoutSidenav\">\n            \n            <div id=\"layoutSidenav_content\">\n                <main>\n                    <div class=\"container-fluid px-4\">\n                        <h1 class=\"mt-4\"><b>MAPA COLABORATIVO DAS MULHERES BRASILEIRAS</b></h1>\n                        <ol class=\"breadcrumb mb-4\">\n                            <li class=\"breadcrumb-item active\">COORDENAÇÃO DE TECNOLOGIA DA INFORMAÇÃO - MINISTÉRIO DAS MULHERES</li>\n                        </ol>\n                        <div class=\"row\">\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\" ><a class=\"small text-black stretched-link\" href=\"#\" >ÍNICIO</a></div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\">UF/REGIÕES</div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\">FOCO DE ATUAÇÃO</div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card  text-black mb-4\">\n                                    <div class=\"card-body\">OUTRAS INFORMAÇÕES</div>\n                                </div>\n                            </div>\n                        </div>\n                        \n                        <div class=\"row\">\n                            <div class=\"col-xl-6\">\n                                <div class=\"card mb-4\">\n                                    <div class=\"card-header\">\n                                        <i class=\"fas fa-chart-area me-1\"></i>\n                                        Area Chart Example\n                                    </div>\n                                    <div class=\"card-body\"><canvas id=\"myAreaChart\" width=\"100%\" height=\"40\"></canvas></div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-6\">\n                                <div class=\"card mb-4\">\n                                    <div class=\"card-header\">\n                                        <i class=\"fas fa-chart-bar me-1\"></i>\n                                        Bar Chart Example\n                                    </div>\n                                    <div class=\"card-body\"><canvas id=\"myBarChart\" width=\"100%\" height=\"40\"></canvas></div>\n                                </div>\n                            </div>\n                        </div>",
+        "output": "str",
+        "x": 150,
+        "y": 680,
+        "wires": [
+            [
+                "8be11436b82c3c8d"
+            ]
+        ]
+    },
+    {
+        "id": "74e4e7732d5c4c1b",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "HTML Final - início",
+        "func": "msg.htmlFinal = msg.template01 +\n    '<style rel=\"stylesheet\" >' + msg.payload + '</style>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 620,
+        "wires": [
+            [
+                "523dbfceb7069416"
+            ]
+        ]
+    },
+    {
+        "id": "64a10bdbd00d1ce7",
+        "type": "file in",
+        "z": "e0b7f874cc0843e8",
+        "name": "JS",
+        "filename": "C:/testes/js/scripts.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 150,
+        "y": 740,
+        "wires": [
+            [
+                "ba4e31718b5fd0be"
+            ]
+        ]
+    },
+    {
+        "id": "0737df068915a8b4",
+        "type": "file in",
+        "z": "e0b7f874cc0843e8",
+        "name": "Chart Area",
+        "filename": "C:/testes/assets/demo/chart-area-demo.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 550,
+        "y": 1020,
+        "wires": [
+            [
+                "802680d410405a6f"
+            ]
+        ]
+    },
+    {
+        "id": "3208f0cc199c9fee",
+        "type": "file in",
+        "z": "e0b7f874cc0843e8",
+        "name": "Chart Bar",
+        "filename": "C:/testes/assets/demo/chart-bar-demo.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 140,
+        "y": 1080,
+        "wires": [
+            [
+                "c6b868b5168f3056"
+            ]
+        ]
+    },
+    {
+        "id": "f6c07a65ee6d17ca",
+        "type": "file in",
+        "z": "e0b7f874cc0843e8",
+        "name": "Chart Pie ",
+        "filename": "C:/testes/assets/demo/chart-pie-demo.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 520,
+        "y": 1080,
+        "wires": [
+            [
+                "0a2d5100eab68fb0"
+            ]
+        ]
+    },
+    {
+        "id": "d5e52fd60ed5a803",
+        "type": "file in",
+        "z": "e0b7f874cc0843e8",
+        "name": "Data Table",
+        "filename": "C:/testes/assets/demo/datatables-demo.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 150,
+        "y": 1140,
+        "wires": [
+            [
+                "e8d9d44b9c680ffe"
+            ]
+        ]
+    },
+    {
+        "id": "802680d410405a6f",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carrega gráfico ",
+        "func": "msg.htmlFinal += \n    '<script>' + msg.payload + '</script>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1020,
+        "wires": [
+            [
+                "3208f0cc199c9fee"
+            ]
+        ]
+    },
+    {
+        "id": "c6b868b5168f3056",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carrega gráfico ",
+        "func": "msg.htmlFinal += \n    '<script>' + msg.payload + '</script>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 1080,
+        "wires": [
+            [
+                "f6c07a65ee6d17ca"
+            ]
+        ]
+    },
+    {
+        "id": "0a2d5100eab68fb0",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carrega gráfico ",
+        "func": "msg.htmlFinal += \n    '<script>' + msg.payload + '</script>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 1080,
+        "wires": [
+            [
+                "d5e52fd60ed5a803"
+            ]
+        ]
+    },
+    {
+        "id": "e8d9d44b9c680ffe",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carrega gráfico ",
+        "func": "msg.htmlFinal += \n    '<script>' + msg.payload + '</script>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ba4e31718b5fd0be",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carrega JS principal",
+        "func": "msg.htmlFinal += \n    '<script>' + msg.payload + '</script>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 740,
+        "wires": [
+            [
+                "6ce7459a02f34f3b",
+                "cca00b531d24a3b6"
+            ]
+        ]
+    },
+    {
+        "id": "f14366bfece54b8f",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "Parte Final",
+        "field": "template03",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "\n\n    \n    </body>\n</html>\n",
+        "output": "str",
+        "x": 590,
+        "y": 860,
+        "wires": [
+            [
+                "7204c10cba69635a"
+            ]
+        ]
+    },
+    {
+        "id": "7204c10cba69635a",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "HTML Final - template 3 finalização",
+        "func": "msg.htmlFinal += \n    msg.template03;\n    \nmsg.payload = msg.htmlFinal;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 860,
+        "wires": [
+            [
+                "b9f85338b0cf6e56",
+                "6b994398095dfb2a",
+                "6b008a5d51f83947"
+            ]
+        ]
+    },
+    {
+        "id": "523dbfceb7069416",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "Tree Map Parte 1",
+        "field": "httpParte01",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "\n    <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>\n    <script type=\"text/javascript\">\n      google.charts.load('current', {'packages':['treemap']});\n      google.charts.setOnLoadCallback(drawChart);\n",
+        "output": "str",
+        "x": 390,
+        "y": 620,
+        "wires": [
+            [
+                "1689bba6a62045f2"
+            ]
+        ]
+    },
+    {
+        "id": "1689bba6a62045f2",
+        "type": "template",
+        "z": "e0b7f874cc0843e8",
+        "name": "Tree Map Parte 2",
+        "field": "httpParte02",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "\n        tree = new google.visualization.TreeMap(document.getElementById('chart_div'));\n\n        var options = {\n          minColor: '#e7711c',\n          midColor: '#fff',\n          maxColor: '#4374e0',\n          showScale: true,\n          generateTooltip: showFullTooltip\n        };\n\n        tree.draw(data, options);\n        \n        function showFullTooltip(row, size, value) {\n          var retorno = \n               '<div style=\"background:#fd9; padding:10px; border-style:solid\">' +\n                '<span style=\"font-family:Courier\"><b>' + data.getValue(row, 0) + '</b> ' + \n                '<br><b>Total de Ocorrências: </b>' + data.getValue(row, 2) ;\n          if (data.getValue(row, 1) === 'Global'){\n            retorno +=  '<br><b>Total de Palavras: </b>'  + data.getValue(row, 3) ;\n          }else{\n\n          }\n          retorno +=  ' </div>'\n          return retorno;\n        }\n\n      }\n    </script>\n",
+        "output": "str",
+        "x": 630,
+        "y": 620,
+        "wires": [
+            [
+                "01a3c5c8b4e99c8b"
+            ]
+        ]
+    },
+    {
+        "id": "01a3c5c8b4e99c8b",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "msg.htmlDinamico",
+        "func": "\nvar dadosFormatados = \" ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'], \";\ndadosFormatados += \" ['Global',    null,                 0,                               0]\";\nfor (let index = 0; index < msg.grupo.length; index++) {\n    const grupo = msg.grupo[index];\n    dadosFormatados += \", [ '\" + grupo.grupo + \"', 'Global', \" + grupo.quantidadePalavras + ', ' + grupo.quantidadeObjetos + ']';  \n}\n\nfor (let index = 0; index < msg.grupo.length; index++) {\n    const grupo = msg.grupo[index];\n//    if (typeof grupo.palavra !== \"undefined\"){\n        for (let indexPalavra = 0; indexPalavra < grupo.palavra.length; indexPalavra++) {\n            const palavra = grupo.palavra[indexPalavra];\n            dadosFormatados += \", [ '.\" + palavra.texto + \"', '\" + grupo.grupo + \"', \" + palavra.quantidade + ', ' + palavra.quantidade + ']';\n        }\n//    }\n\n}\n\n\n\nvar parteDinamica = 'function drawChart() { \\n\\t' + 'var data = google.visualization.arrayToDataTable([\\n\\n' + dadosFormatados + '\\n\\n ]);';\n\nmsg.htmlDinamico = msg.httpParte01 + parteDinamica + msg.httpParte02;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 620,
+        "wires": [
+            [
+                "9eef83e95a0149ef"
+            ]
+        ]
+    },
+    {
+        "id": "b9f85338b0cf6e56",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 18",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "6ce7459a02f34f3b",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 19",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "cca00b531d24a3b6",
+        "type": "file in",
+        "z": "e0b7f874cc0843e8",
+        "name": "JS",
+        "filename": "C:/testes/js/datatables-simple-demo.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 530,
+        "y": 800,
+        "wires": [
+            [
+                "9fce2112370a9aca"
+            ]
+        ]
+    },
+    {
+        "id": "9fce2112370a9aca",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Carrega JS principal",
+        "func": "msg.htmlFinal += \n    '        <script src=\"https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js\" crossorigin=\"anonymous\"></script>' +\n    \n    '\\n<script>' + msg.payload + '</script>' + \n    '\\n\\n' \n    + msg.htmlDinamico;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 800,
+        "wires": [
+            [
+                "f14366bfece54b8f"
+            ]
+        ]
+    },
+    {
+        "id": "6b994398095dfb2a",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "Dados Planilha",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "dadosPlanilha",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1180,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "bc55768bf720e545",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Prepara a tabela de dados",
+        "func": "msg.campos = [\n        'ID', 'Hora de conclusão', 'Unidade da Federação - UF', \n        'Município', 'Nome do grupo, coletivo, entidade, movimento, rede, organização de mulheres e/ou feminista',\n        'Endereço', 'E-mail', 'Área de atuação'];\n\nmsg.htmlTable = \n        '\\n\\t\\t\\t\\t<div class=\"card mb-4\">\\n' +\n        '\\n\\t\\t\\t\\t\\t<div class=\"card-header\">\\n' +\n        '\\n\\t\\t\\t\\t\\t\\t<i class=\"fas fa-table me-1\"></i>\\n' +\n        '\\n\\t\\t\\t\\t        DataTable Example\\n' +\n        '\\n\\t\\t\\t\\t    </div>\\n' +\n        '\\n\\t\\t\\t\\t    <div class=\"card-body\">\\n' +\n        '\\n\\t\\t\\t\\t\\t        <table id=\"datatablesSimple\">\\n' +\n        '\\n\\t\\t\\t\\t            <thead>\\n' +\n        '\\n\\t\\t\\t\\t                <tr>\\n';\n\nconst dadoHeader = msg.campos;\nfor (let x in dadoHeader) {\n        msg.htmlTable += '\\n\\t\\t\\t\\t <th>' + dadoHeader[x] +\n                '</th>'\n}\nmsg.htmlTable += '\\t\\t\\t\\t                </tr>\\n';\nmsg.htmlTable += '\\t\\t\\t\\t</thead >\\n';\n\nmsg.htmlTable += '\\n\\t\\t\\t\\t            <tfoot>\\n' +\n        '\\n\\t\\t\\t\\t                <tr>\\n';\nfor (let x in dadoHeader) {\n        msg.htmlTable += '\\n\\t\\t\\t\\t <th>' + msg.campos +\n                '</th>'\n}\nmsg.htmlTable += '\\t\\t\\t\\t                </tr>\\n';\nmsg.htmlTable += '\\t\\t\\t\\t</tfoot >\\n';\n\nmsg.htmlTable += '\\t\\t\\t\\t<tbody >\\n';\nfor (let index = 1; index < msg.dadosPlanilha.length; index++) {\n        const dado = msg.dadosPlanilha[index];\n        msg.htmlTable += '\\t\\t\\t\\t\\t<tr >\\n';\n        for (let index = 0; index < msg.campos.length; index++) {\n                const element = msg.campos[index];\n                msg.htmlTable += '\\n\\t\\t\\t\\t <td>' + dado[element] +\n                        '</td>'\n        }\n        msg.htmlTable += '\\t\\t\\t\\t\\t</tr >\\n';\n}        \nmsg.htmlTable += '\\t\\t\\t\\t</tbody >\\n';\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 680,
+        "wires": [
+            [
+                "9bf57032315d2050"
+            ]
+        ]
+    },
+    {
+        "id": "e26c7cd2fd8bd6a9",
+        "type": "debug",
+        "z": "e0b7f874cc0843e8",
+        "name": "debug 20",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6b008a5d51f83947",
+        "type": "function",
+        "z": "e0b7f874cc0843e8",
+        "name": "Realiza a contagem para os gráficos",
+        "func": "msg.contagemUF = [];\nmsg.contagemRegiao = [];\nmsg.contagemAreaAtuacao = [];\nmsg.contagemIntegraConselho = [];\nmsg.contagemParticipaConferencia = [];\nmsg.contagemAutorizacao = [];\n\nfor (let index = 0; index < msg.dadosPlanilha.length; index++) {\n    const element = msg.dadosPlanilha[index];\n    var contaUF = {valor: element['Unidade da Federação - UF'], quantidade: 1};\n    var contaRegiao = { valor: element['regiao'], quantidade: 1 };\n    var contaAreaAtuacao = { valor: element['Área de atuação'], quantidade: 1 };\n    var contaIntegraConselho = { valor: element['Integra algum conselho dos direitos das mulheres?'], quantidade: 1 };\n    var contaParticipaConferencia = { valor: element['Já participou de alguma conferência de direitos das mulheres?'], quantidade: 1 };\n    var contaAutorizacao = { valor: element['Autorizo que as informações disponibilizadas neste formulário sejam acessadas e mantidas pelas equipes do Ministério das Mulheres e do Conselho Nacional dos Direitos da Mulher (Lei n° 13.709/2018 ...'], quantidade: 1 };\n\n    var encontrou = false;\n    //Realiza a contagem das UFs\n    for (let index = 0; index < msg.contagemUF.length; index++) {\n        var contagem = msg.contagemUF[index];\n        if (contagem.valor == contaUF.valor){\n            contagem.quantidade++;\n            encontrou = true;\n            break;\n        }\n    }\n    if (!encontrou){\n        msg.contagemUF.push(contaUF);\n    }\n    encontrou = false;\n    //Realiza a contagem das Regiões\n    for (let index = 0; index < msg.contagemRegiao.length; index++) {\n        var contagem = msg.contagemRegiao[index];\n        if (contagem.valor == contaRegiao.valor) {\n            contagem.quantidade++;\n            encontrou = true;\n            break;\n        }\n    }\n    if (!encontrou) {\n        msg.contagemRegiao.push(contaRegiao);\n    }\n    encontrou = false;\n    //TODO CONTINUAR A CONTAGEM CONFORM O MODELO\n\n\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 940,
+        "wires": [
+            [
+                "de7b5c647424ea6f"
+            ]
+        ]
     }
 ]
