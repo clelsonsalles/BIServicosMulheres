@@ -152,19 +152,20 @@
         "type": "function",
         "z": "5690780976e6b473",
         "name": "Carrega totalizadores UF e Regioes",
-        "func": "\nreturn msg;",
+        "func": "msg.dadosPlanilha = msg.payload;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 180,
-        "y": 260,
+        "x": 1100,
+        "y": 180,
         "wires": [
             [
                 "03401643fa5b04a2",
                 "fbf2bef65a971f8e",
-                "e9241bf3bb9d1f5b"
+                "e9241bf3bb9d1f5b",
+                "2db9f067a6e8a55e"
             ]
         ]
     },
@@ -180,8 +181,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 260,
+        "x": 1500,
+        "y": 160,
         "wires": []
     },
     {
@@ -243,8 +244,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 300,
+        "x": 1500,
+        "y": 200,
         "wires": []
     },
     {
@@ -260,8 +261,326 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 340,
+        "x": 1500,
+        "y": 240,
         "wires": []
+    },
+    {
+        "id": "2db9f067a6e8a55e",
+        "type": "template",
+        "z": "5690780976e6b473",
+        "name": "Parte 01",
+        "field": "template01",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\" />\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" />\n        <meta name=\"description\" content=\"\" />\n        <meta name=\"author\" content=\"\" />\n        <title>Dashboard - Mapa Colaborativo</title>\n\n        <link href=\"https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css\" rel=\"stylesheet\" />\n\n        <script src=\"https://use.fontawesome.com/releases/v6.3.0/js/all.js\" crossorigin=\"anonymous\"></script>\n    <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>\n\n    ",
+        "output": "str",
+        "x": 100,
+        "y": 240,
+        "wires": [
+            [
+                "20913880401d702a"
+            ]
+        ]
+    },
+    {
+        "id": "e6c9aa75b145e694",
+        "type": "template",
+        "z": "5690780976e6b473",
+        "name": "Parte 02",
+        "field": "template02",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "\n                                </table>\n                            </div>\n                        </div>\n\n\n\n                    </div>\n                </main>\n                <footer class=\"py-4 bg-light mt-auto\">\n                    <div class=\"container-fluid px-4\">\n                        <div class=\"d-flex align-items-center justify-content-between small\">\n                            <div class=\"text-muted\">Copyright &copy; Coordenação de Tecnologia da Informação - Ministério das Mulheres</div>\n                            \n                        </div>\n                    </div>\n                </footer>\n            </div>\n        </div>\n        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js\" crossorigin=\"anonymous\"></script>\n                                  \n                                </div>\n                                </div>\n                            </div>\n                        </div>",
+        "output": "str",
+        "x": 700,
+        "y": 300,
+        "wires": [
+            [
+                "c70b3e85b156e57d"
+            ]
+        ]
+    },
+    {
+        "id": "c70b3e85b156e57d",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "HTML Final - templates 1 e 2",
+        "func": "//msg.htmlFinal += msg.htmlDinamico +\nmsg.htmlFinal += \n    msg.template011 + \n    msg.totalUF + msg.template012 + msg.totalRegioes + \n    msg.template01 + msg.template02;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 300,
+        "wires": [
+            [
+                "bc7046b342cf0197"
+            ]
+        ]
+    },
+    {
+        "id": "c32400da22ec4a43",
+        "type": "http response",
+        "z": "5690780976e6b473",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 490,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "20913880401d702a",
+        "type": "file in",
+        "z": "5690780976e6b473",
+        "name": "CSS",
+        "filename": "C:/testes/css/styles.css",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 270,
+        "y": 240,
+        "wires": [
+            [
+                "49cf74f535094c4f"
+            ]
+        ]
+    },
+    {
+        "id": "4dcaf087c00ad492",
+        "type": "template",
+        "z": "5690780976e6b473",
+        "name": "Parte 01-1",
+        "field": "template011",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "</head>\n    <body >\n        \n        <div id=\"layoutSidenav\">\n            \n            <div id=\"layoutSidenav_content\">\n                <main>\n                    <div class=\"container-fluid px-4\">\n                        <h1 class=\"mt-4\"><b>MAPA COLABORATIVO DAS MULHERES BRASILEIRAS</b></h1>\n                        <ol class=\"breadcrumb mb-4\">\n                            <li class=\"breadcrumb-item active\">COORDENAÇÃO DE TECNOLOGIA DA INFORMAÇÃO - MINISTÉRIO DAS MULHERES</li>\n                        </ol>\n                        <div class=\"row\">\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\" ><a class=\"small text-black stretched-link\" href=\"#\" >ÍNICIO</a></div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\">UF/REGIÕES</div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\">FOCO DE ATUAÇÃO</div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card  text-black mb-4\">\n                                    <div class=\"card-body\">OUTRAS INFORMAÇÕES</div>\n                                </div>\n                            </div>\n                        </div>\n                        \n                        <div class=\"row\">\n                            <div class=\"col-xl-6\">\n                                <div class=\"card mb-4\">\n                                    <div class=\"card-header\">\n                                        <i class=\"fas fa-chart-area me-1\"></i>\n                                        Totalização das UFs\n                                    </div>\n                                    <div class=\"card-body\">\n",
+        "output": "str",
+        "x": 670,
+        "y": 240,
+        "wires": [
+            [
+                "194ed437d30cc673"
+            ]
+        ]
+    },
+    {
+        "id": "49cf74f535094c4f",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "HTML Final - início",
+        "func": "msg.htmlFinal = msg.template01 +\n    '<style rel=\"stylesheet\" >' + msg.payload + '</style>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "4dcaf087c00ad492"
+            ]
+        ]
+    },
+    {
+        "id": "bc7046b342cf0197",
+        "type": "file in",
+        "z": "5690780976e6b473",
+        "name": "JS",
+        "filename": "C:/testes/js/scripts.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 90,
+        "y": 340,
+        "wires": [
+            [
+                "929cc6f4f459cdbb"
+            ]
+        ]
+    },
+    {
+        "id": "929cc6f4f459cdbb",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "Carrega JS principal",
+        "func": "msg.htmlFinal += \n    '<script>' + msg.payload + '</script>' ;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 340,
+        "wires": [
+            [
+                "2511e06cb0461bb8"
+            ]
+        ]
+    },
+    {
+        "id": "9125b7e49396b4a7",
+        "type": "template",
+        "z": "5690780976e6b473",
+        "name": "Parte Final",
+        "field": "template03",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "\n\n    \n    </body>\n</html>\n",
+        "output": "str",
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "d4e3eaba71a75c2f"
+            ]
+        ]
+    },
+    {
+        "id": "d4e3eaba71a75c2f",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "HTML Final - template 3 finalização",
+        "func": "msg.htmlFinal += \n    msg.template03;\n    \nmsg.payload = msg.htmlFinal;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 340,
+        "wires": [
+            [
+                "e3f7085be08e1398"
+            ]
+        ]
+    },
+    {
+        "id": "2511e06cb0461bb8",
+        "type": "file in",
+        "z": "5690780976e6b473",
+        "name": "JS",
+        "filename": "C:/testes/js/datatables-simple-demo.js",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 470,
+        "y": 340,
+        "wires": [
+            [
+                "f1da1c168bc74250"
+            ]
+        ]
+    },
+    {
+        "id": "f1da1c168bc74250",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "Carrega JS principal",
+        "func": "msg.htmlFinal += \n    '        <script src=\"https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js\" crossorigin=\"anonymous\"></script>' +\n    \n    '\\n<script>' + msg.payload + '</script>' + \n    '\\n\\n' \n    + msg.htmlDinamico;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 340,
+        "wires": [
+            [
+                "9125b7e49396b4a7"
+            ]
+        ]
+    },
+    {
+        "id": "e3f7085be08e1398",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "Realiza a contagem para os gráficos",
+        "func": "msg.contagemUF = [];\nmsg.contagemRegiao = [];\nmsg.contagemAreaAtuacao = [];\nmsg.contagemIntegraConselho = [];\nmsg.contagemParticipaConferencia = [];\nmsg.contagemAutorizacao = [];\n\nfor (let index = 0; index < msg.dadosPlanilha.length; index++) {\n    const element = msg.dadosPlanilha[index];\n    var contaUF = {valor: element['Unidade da Federação - UF'], quantidade: 1};\n    var contaRegiao = { valor: element['regiao'], quantidade: 1 };\n    var contaAreaAtuacao = { valor: element['Área de atuação'], quantidade: 1 };\n    var contaIntegraConselho = { valor: element['Integra algum conselho dos direitos das mulheres?'], quantidade: 1 };\n    var contaParticipaConferencia = { valor: element['Já participou de alguma conferência de direitos das mulheres?'], quantidade: 1 };\n    var contaAutorizacao = { valor: element['Autorizo que as informações disponibilizadas neste formulário sejam acessadas e mantidas pelas equipes do Ministério das Mulheres e do Conselho Nacional dos Direitos da Mulher (Lei n° 13.709/2018 ...'], quantidade: 1 };\n\n    var encontrou = false;\n    //Realiza a contagem das UFs\n    for (let index = 0; index < msg.contagemUF.length; index++) {\n        var contagem = msg.contagemUF[index];\n        if (contagem.valor == contaUF.valor){\n            contagem.quantidade++;\n            encontrou = true;\n            break;\n        }\n    }\n    if (!encontrou){\n        msg.contagemUF.push(contaUF);\n    }\n    encontrou = false;\n    //Realiza a contagem das Regiões\n    for (let index = 0; index < msg.contagemRegiao.length; index++) {\n        var contagem = msg.contagemRegiao[index];\n        if (contagem.valor == contaRegiao.valor) {\n            contagem.quantidade++;\n            encontrou = true;\n            break;\n        }\n    }\n    if (!encontrou) {\n        msg.contagemRegiao.push(contaRegiao);\n    }\n    encontrou = false;\n    //TODO CONTINUAR A CONTAGEM CONFORM O MODELO\n\n\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 400,
+        "wires": [
+            [
+                "c32400da22ec4a43"
+            ]
+        ]
+    },
+    {
+        "id": "194ed437d30cc673",
+        "type": "template",
+        "z": "5690780976e6b473",
+        "name": "Parte Grafico das UFs",
+        "field": "totalUF",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "\n  <script type=\"text/javascript\">\n    google.charts.load(\"current\", {packages:[\"corechart\"]});\n    google.charts.setOnLoadCallback(drawChart);\n    function drawChart() {\n      var data = google.visualization.arrayToDataTable([\n        [\"Element\", \"Density\", { role: \"style\" } ],\n        [\"Copper\", 8.94, \"#b87333\"],\n        [\"Silver\", 10.49, \"silver\"],\n        [\"Gold\", 19.30, \"gold\"],\n        [\"Platinum\", 21.45, \"color: #e5e4e2\"]\n      ]);\n\n      var view = new google.visualization.DataView(data);\n      view.setColumns([0, 1,\n                       { calc: \"stringify\",\n                         sourceColumn: 1,\n                         type: \"string\",\n                         role: \"annotation\" },\n                       2]);\n\n      var options = {\n        title: \"Density of Precious Metals, in g/cm^3\",\n        width: 600,\n        height: 400,\n        bar: {groupWidth: \"95%\"},\n        legend: { position: \"none\" },\n      };\n      var chart = new google.visualization.BarChart(document.getElementById(\"barchart_values\"));\n      chart.draw(view, options);\n  }\n  </script>\n  \n<div id=\"barchart_values\" ></div>\n\n     ",
+        "output": "str",
+        "x": 900,
+        "y": 240,
+        "wires": [
+            [
+                "3ea3f57cc3152bed"
+            ]
+        ]
+    },
+    {
+        "id": "3ea3f57cc3152bed",
+        "type": "template",
+        "z": "5690780976e6b473",
+        "name": "Parte 01-2",
+        "field": "template012",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "   \n\n      \n\n\n                                    </div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-6\">\n                                <div class=\"card mb-4\">\n                                    <div class=\"card-header\">\n                                        <i class=\"fas fa-chart-bar me-1\"></i>\n                                        Totalização das Regiões\n                                    </div>\n                                    <div class=\"card-body\">",
+        "output": "str",
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "578306d0c5eea997"
+            ]
+        ]
+    },
+    {
+        "id": "578306d0c5eea997",
+        "type": "template",
+        "z": "5690780976e6b473",
+        "name": "Parte Grafico das Regiões",
+        "field": "totalRegioes",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": " \n  <script type=\"text/javascript\">\n    google.charts.load(\"current\", {packages:[\"corechart\"]});\n    google.charts.setOnLoadCallback(drawChartRegioes);\n    function drawChartRegioes() {\n      var data = google.visualization.arrayToDataTable([\n        [\"Element\", \"Density\", { role: \"style\" } ],\n        [\"Copper\", 8.94, \"#b87333\"],\n        [\"Silver\", 10.49, \"silver\"],\n        [\"Gold\", 19.30, \"gold\"],\n        [\"Platinum\", 21.45, \"color: #e5e4e2\"]\n      ]);\n\n      var view = new google.visualization.DataView(data);\n      view.setColumns([0, 1,\n                       { calc: \"stringify\",\n                         sourceColumn: 1,\n                         type: \"string\",\n                         role: \"annotation\" },\n                       2]);\n\n      var options = {\n        title: \"Density of Precious Metals, in g/cm^3\",\n        width: 600,\n        height: 400,\n        bar: {groupWidth: \"95%\"},\n        legend: { position: \"none\" },\n      };\n      var chartRegioes = new google.visualization.BarChart(document.getElementById(\"barchartRegioes_values\"));\n      chartRegioes.draw(view, options);\n  }\n  </script>\n  \n<div id=\"barchartRegioes_values\" ></div>\n\n     ",
+        "output": "str",
+        "x": 340,
+        "y": 300,
+        "wires": [
+            [
+                "e6c9aa75b145e694"
+            ]
+        ]
     }
 ]
