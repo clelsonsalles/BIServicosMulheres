@@ -1,0 +1,267 @@
+[
+    {
+        "id": "5690780976e6b473",
+        "type": "tab",
+        "label": "CNDM - Mapa Colaborativo - UFeRegioes",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2f5d3e788971821c",
+        "type": "XLSX-to-json",
+        "z": "5690780976e6b473",
+        "name": "Carregar a Planilha",
+        "filepath": "C:\\Users\\clelson.rodrigues\\Downloads\\mapa.xlsx",
+        "rangecell": "",
+        "columnkey": "",
+        "sheet": "Sheet1",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "336a655b29f72db5"
+            ]
+        ]
+    },
+    {
+        "id": "336a655b29f72db5",
+        "type": "split",
+        "z": "5690780976e6b473",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 350,
+        "y": 180,
+        "wires": [
+            [
+                "c2542cdfdf86e5b7"
+            ]
+        ]
+    },
+    {
+        "id": "55f69a8b7ceebac4",
+        "type": "http request",
+        "z": "5690780976e6b473",
+        "name": "Buscar regiões no IBGE",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "b3e891179a512902"
+            ]
+        ]
+    },
+    {
+        "id": "c2542cdfdf86e5b7",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "Totalizadores de UFs e Regiões",
+        "func": "msg.totalizadoresUF = [];\nmsg.totalizadoresRegiao = [];\n\n//realiza a totalização das UFs e das Regiões\nfor (let index = 0; index < msg.regioes.length; index++) {\n    var unidadeFederacao = msg.regioes[index];\n    var encontrouUF = false;\n    for (let cont = 0; cont < msg.totalizadoresUF.length; cont++) {\n        var totalUF = msg.totalizadoresUF[cont];\n        if(totalUF.nome == unidadeFederacao.nome){\n            totalUF.quantidade = 1 + totalUF.quantidade;\n            encontrouUF = true;\n            break;\n        }\n    }\n    if (!encontrouUF){\n        var totalUFNova = { nome: unidadeFederacao.nome, quantidade: 1 };\n        msg.totalizadoresUF.push(totalUFNova)\n    }\n\n    var regiao = msg.regioes[index].regiao;\n    var encontrouRegiao = false;\n    for (let cont = 0; cont < msg.totalizadoresRegiao.length; cont++) {\n        var totalRegiao = msg.totalizadoresRegiao[cont];\n        if (totalRegiao.nome == regiao.nome) {\n            totalRegiao.quantidade = 1 + totalRegiao.quantidade;\n            encontrouRegiao = true;\n            break;\n        }\n    }\n    if (!encontrouRegiao) {\n        var totalRegiaoNova = { nome: regiao.nome, quantidade: 1 };\n        msg.totalizadoresRegiao.push(totalRegiaoNova)\n    }\n\n}\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 180,
+        "wires": [
+            [
+                "17275dd7eb430e3f"
+            ]
+        ]
+    },
+    {
+        "id": "b3e891179a512902",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "Carregar Regiões",
+        "func": "msg.regioes = msg.payload;\n\nmsg.erros = [];\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 120,
+        "wires": [
+            [
+                "2f5d3e788971821c",
+                "96159a8b27fbe9b1"
+            ]
+        ]
+    },
+    {
+        "id": "17275dd7eb430e3f",
+        "type": "join",
+        "z": "5690780976e6b473",
+        "name": "",
+        "mode": "auto",
+        "build": "object",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": "false",
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "x": 850,
+        "y": 180,
+        "wires": [
+            [
+                "b9df7d3039f927de"
+            ]
+        ]
+    },
+    {
+        "id": "605b4b6572476d03",
+        "type": "http in",
+        "z": "5690780976e6b473",
+        "name": "",
+        "url": "/mapaColaborativo/regioes",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "55f69a8b7ceebac4"
+            ]
+        ]
+    },
+    {
+        "id": "b9df7d3039f927de",
+        "type": "function",
+        "z": "5690780976e6b473",
+        "name": "Carrega totalizadores UF e Regioes",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "03401643fa5b04a2",
+                "fbf2bef65a971f8e",
+                "e9241bf3bb9d1f5b"
+            ]
+        ]
+    },
+    {
+        "id": "03401643fa5b04a2",
+        "type": "debug",
+        "z": "5690780976e6b473",
+        "name": "debug 18",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "b736db4106ef9bcc",
+        "type": "inject",
+        "z": "5690780976e6b473",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 40,
+        "wires": [
+            [
+                "55f69a8b7ceebac4"
+            ]
+        ]
+    },
+    {
+        "id": "96159a8b27fbe9b1",
+        "type": "debug",
+        "z": "5690780976e6b473",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "regioes",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1080,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "fbf2bef65a971f8e",
+        "type": "debug",
+        "z": "5690780976e6b473",
+        "name": "debug 22",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "totalizadoresUF",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e9241bf3bb9d1f5b",
+        "type": "debug",
+        "z": "5690780976e6b473",
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "totalizadoresRegiao",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 340,
+        "wires": []
+    }
+]
