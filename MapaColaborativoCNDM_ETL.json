@@ -16,7 +16,7 @@
         "rangecell": "",
         "columnkey": "",
         "sheet": "Sheet1",
-        "x": 210,
+        "x": 190,
         "y": 160,
         "wires": [
             [
@@ -45,8 +45,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 120,
-        "y": 80,
+        "x": 200,
+        "y": 40,
         "wires": [
             [
                 "bd105daeaff3d749"
@@ -107,8 +107,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 370,
-        "y": 80,
+        "x": 470,
+        "y": 100,
         "wires": [
             [
                 "df6c12c754305a9c"
@@ -130,8 +130,7 @@
         "y": 160,
         "wires": [
             [
-                "5b11ca1ab87d42bf",
-                "e26c7cd2fd8bd6a9"
+                "5b11ca1ab87d42bf"
             ]
         ]
     },
@@ -148,8 +147,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
-        "y": 360,
+        "x": 1520,
+        "y": 320,
         "wires": []
     },
     {
@@ -163,8 +162,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 610,
-        "y": 80,
+        "x": 710,
+        "y": 100,
         "wires": [
             [
                 "4396626d44b095c6"
@@ -186,10 +185,6 @@
         "y": 220,
         "wires": [
             [
-                "a0f472f25916abc5",
-                "164e53294acebd46",
-                "42db59401a8ad96e",
-                "fdef1cae3a798249",
                 "cd4b8314added078"
             ]
         ]
@@ -207,8 +202,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 710,
-        "y": 280,
+        "x": 1510,
+        "y": 240,
         "wires": []
     },
     {
@@ -248,8 +243,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 720,
-        "y": 320,
+        "x": 1520,
+        "y": 280,
         "wires": []
     },
     {
@@ -265,8 +260,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 740,
-        "y": 400,
+        "x": 1540,
+        "y": 360,
         "wires": []
     },
     {
@@ -282,8 +277,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1120,
-        "y": 280,
+        "x": 1520,
+        "y": 80,
         "wires": []
     },
     {
@@ -297,13 +292,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
+        "x": 800,
         "y": 220,
         "wires": [
             [
-                "a6278f318481f3b0",
-                "8c76c07f3fc732b7",
-                "85886b6bf09798c1",
                 "b64aacbf509f61c0"
             ]
         ]
@@ -321,8 +313,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1160,
-        "y": 320,
+        "x": 1560,
+        "y": 120,
         "wires": []
     },
     {
@@ -338,8 +330,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1110,
-        "y": 360,
+        "x": 1510,
+        "y": 160,
         "wires": []
     },
     {
@@ -353,8 +345,8 @@
         "syntax": "plain",
         "template": "<html>\n  <head>\n    <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>\n    <script type=\"text/javascript\">\n      google.charts.load('current', {'packages':['treemap']});\n      google.charts.setOnLoadCallback(drawChart);\n",
         "output": "str",
-        "x": 100,
-        "y": 300,
+        "x": 1020,
+        "y": 980,
         "wires": [
             [
                 "c2a31c9ef76263a1"
@@ -368,8 +360,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 490,
-        "y": 360,
+        "x": 1410,
+        "y": 1040,
         "wires": []
     },
     {
@@ -381,8 +373,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 140,
-        "y": 40,
+        "x": 200,
+        "y": 100,
         "wires": [
             [
                 "bd105daeaff3d749"
@@ -400,8 +392,8 @@
         "syntax": "plain",
         "template": "\n        tree = new google.visualization.TreeMap(document.getElementById('chart_div'));\n\n        var options = {\n          minColor: '#e7711c',\n          midColor: '#fff',\n          maxColor: '#4374e0',\n          showScale: true,\n          generateTooltip: showFullTooltip\n        };\n\n        tree.draw(data, options);\n        \n        function showFullTooltip(row, size, value) {\n          var retorno = \n               '<div style=\"background:#fd9; padding:10px; border-style:solid\">' +\n                '<span style=\"font-family:Courier\"><b>' + data.getValue(row, 0) + '</b> ' + \n                '<br><b>Total de Ocorrências: </b>' + data.getValue(row, 2) ;\n          if (data.getValue(row, 1) === 'Global'){\n            retorno +=  '<br><b>Total de Palavras: </b>'  + data.getValue(row, 3) ;\n          }else{\n\n          }\n          retorno +=  ' </div>'\n          return retorno;\n        }\n\n      }\n    </script>\n  </head>\n  <body>\n    <div id=\"chart_div\" style=\"width: 1800px; height: 1000px;\"></div>\n  </body>\n</html>\n",
         "output": "str",
-        "x": 300,
-        "y": 300,
+        "x": 1220,
+        "y": 980,
         "wires": [
             [
                 "701abf12c85f9f49"
@@ -419,8 +411,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 240,
-        "y": 360,
+        "x": 1160,
+        "y": 1040,
         "wires": [
             [
                 "54241e7b9c72b975"
@@ -438,7 +430,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 600,
+        "x": 540,
         "y": 220,
         "wires": [
             [
@@ -455,8 +447,8 @@
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 110,
-        "y": 460,
+        "x": 1010,
+        "y": 940,
         "wires": [
             []
         ]
@@ -472,8 +464,8 @@
         "syntax": "plain",
         "template": "<!DOCTYPE html>\n<html lang=\"en\">\n    <head>\n        <meta charset=\"utf-8\" />\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\" />\n        <meta name=\"description\" content=\"\" />\n        <meta name=\"author\" content=\"\" />\n        <title>Dashboard - Mapa Colaborativo</title>\n\n        <link href=\"https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css\" rel=\"stylesheet\" />\n\n        <script src=\"https://use.fontawesome.com/releases/v6.3.0/js/all.js\" crossorigin=\"anonymous\"></script>\n\n\n    ",
         "output": "str",
-        "x": 1080,
-        "y": 540,
+        "x": 980,
+        "y": 220,
         "wires": [
             [
                 "20afde6dfc001de4"
@@ -492,7 +484,7 @@
         "template": "\n                                </table>\n                            </div>\n                        </div>\n\n\n                        <div class=\"card mb-4\">\n                            <div class=\"card-header\">\n                                <i class=\"fas fa-table me-1\"></i>\n                                Mapa de ocorrências de palavras\n                            </div>\n                            <div class=\"card-body\">\n                                <div id=\"chart_div\" style=\"width: 1800px; height: 1000px;\"></div>\n                            </div>\n                        </div>\n\n                    </div>\n                </main>\n                <footer class=\"py-4 bg-light mt-auto\">\n                    <div class=\"container-fluid px-4\">\n                        <div class=\"d-flex align-items-center justify-content-between small\">\n                            <div class=\"text-muted\">Copyright &copy; Coordenação de Tecnologia da Informação - Ministério das Mulheres</div>\n                            \n                        </div>\n                    </div>\n                </footer>\n            </div>\n        </div>\n        <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js\" crossorigin=\"anonymous\"></script>\n",
         "output": "str",
         "x": 340,
-        "y": 680,
+        "y": 340,
         "wires": [
             [
                 "bc55768bf720e545"
@@ -510,8 +502,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 940,
-        "y": 680,
+        "x": 840,
+        "y": 340,
         "wires": [
             [
                 "64a10bdbd00d1ce7"
@@ -525,8 +517,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1190,
-        "y": 940,
+        "x": 550,
+        "y": 460,
         "wires": []
     },
     {
@@ -541,41 +533,11 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 1270,
-        "y": 540,
+        "x": 1150,
+        "y": 220,
         "wires": [
             [
-                "0aa90a40244d68f3",
                 "74e4e7732d5c4c1b"
-            ]
-        ]
-    },
-    {
-        "id": "20e1172439376d44",
-        "type": "inject",
-        "z": "e0b7f874cc0843e8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 1100,
-        "y": 480,
-        "wires": [
-            [
-                "20afde6dfc001de4"
             ]
         ]
     },
@@ -591,8 +553,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1220,
-        "y": 420,
+        "x": 1520,
+        "y": 200,
         "wires": []
     },
     {
@@ -606,8 +568,8 @@
         "syntax": "plain",
         "template": "</head>\n    <body >\n        \n        <div id=\"layoutSidenav\">\n            \n            <div id=\"layoutSidenav_content\">\n                <main>\n                    <div class=\"container-fluid px-4\">\n                        <h1 class=\"mt-4\"><b>MAPA COLABORATIVO DAS MULHERES BRASILEIRAS</b></h1>\n                        <ol class=\"breadcrumb mb-4\">\n                            <li class=\"breadcrumb-item active\">COORDENAÇÃO DE TECNOLOGIA DA INFORMAÇÃO - MINISTÉRIO DAS MULHERES</li>\n                        </ol>\n                        <div class=\"row\">\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\" ><a class=\"small text-black stretched-link\" href=\"#\" >ÍNICIO</a></div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\">UF/REGIÕES</div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card text-black mb-4\">\n                                    <div class=\"card-body\">FOCO DE ATUAÇÃO</div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-3 col-md-6\">\n                                <div class=\"card  text-black mb-4\">\n                                    <div class=\"card-body\">OUTRAS INFORMAÇÕES</div>\n                                </div>\n                            </div>\n                        </div>\n                        \n                        <div class=\"row\">\n                            <div class=\"col-xl-6\">\n                                <div class=\"card mb-4\">\n                                    <div class=\"card-header\">\n                                        <i class=\"fas fa-chart-area me-1\"></i>\n                                        Area Chart Example\n                                    </div>\n                                    <div class=\"card-body\"><canvas id=\"myAreaChart\" width=\"100%\" height=\"40\"></canvas></div>\n                                </div>\n                            </div>\n                            <div class=\"col-xl-6\">\n                                <div class=\"card mb-4\">\n                                    <div class=\"card-header\">\n                                        <i class=\"fas fa-chart-bar me-1\"></i>\n                                        Bar Chart Example\n                                    </div>\n                                    <div class=\"card-body\"><canvas id=\"myBarChart\" width=\"100%\" height=\"40\"></canvas></div>\n                                </div>\n                            </div>\n                        </div>",
         "output": "str",
-        "x": 150,
-        "y": 680,
+        "x": 170,
+        "y": 340,
         "wires": [
             [
                 "8be11436b82c3c8d"
@@ -625,8 +587,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 150,
-        "y": 620,
+        "x": 190,
+        "y": 280,
         "wires": [
             [
                 "523dbfceb7069416"
@@ -646,7 +608,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 150,
-        "y": 740,
+        "y": 400,
         "wires": [
             [
                 "ba4e31718b5fd0be"
@@ -665,8 +627,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 550,
-        "y": 1020,
+        "x": 570,
+        "y": 980,
         "wires": [
             [
                 "802680d410405a6f"
@@ -685,8 +647,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 140,
-        "y": 1080,
+        "x": 160,
+        "y": 1040,
         "wires": [
             [
                 "c6b868b5168f3056"
@@ -705,8 +667,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 520,
-        "y": 1080,
+        "x": 540,
+        "y": 1040,
         "wires": [
             [
                 "0a2d5100eab68fb0"
@@ -725,8 +687,8 @@
         "sendError": false,
         "encoding": "none",
         "allProps": false,
-        "x": 150,
-        "y": 1140,
+        "x": 170,
+        "y": 1100,
         "wires": [
             [
                 "e8d9d44b9c680ffe"
@@ -744,8 +706,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 740,
-        "y": 1020,
+        "x": 760,
+        "y": 980,
         "wires": [
             [
                 "3208f0cc199c9fee"
@@ -763,8 +725,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 320,
-        "y": 1080,
+        "x": 340,
+        "y": 1040,
         "wires": [
             [
                 "f6c07a65ee6d17ca"
@@ -782,8 +744,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 700,
-        "y": 1080,
+        "x": 720,
+        "y": 1040,
         "wires": [
             [
                 "d5e52fd60ed5a803"
@@ -801,8 +763,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
-        "y": 1140,
+        "x": 360,
+        "y": 1100,
         "wires": [
             []
         ]
@@ -819,10 +781,9 @@
         "finalize": "",
         "libs": [],
         "x": 340,
-        "y": 740,
+        "y": 400,
         "wires": [
             [
-                "6ce7459a02f34f3b",
                 "cca00b531d24a3b6"
             ]
         ]
@@ -838,8 +799,8 @@
         "syntax": "plain",
         "template": "\n\n    \n    </body>\n</html>\n",
         "output": "str",
-        "x": 590,
-        "y": 860,
+        "x": 950,
+        "y": 400,
         "wires": [
             [
                 "7204c10cba69635a"
@@ -857,12 +818,10 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 860,
-        "y": 860,
+        "x": 1200,
+        "y": 400,
         "wires": [
             [
-                "b9f85338b0cf6e56",
-                "6b994398095dfb2a",
                 "6b008a5d51f83947"
             ]
         ]
@@ -878,8 +837,8 @@
         "syntax": "plain",
         "template": "\n    <script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>\n    <script type=\"text/javascript\">\n      google.charts.load('current', {'packages':['treemap']});\n      google.charts.setOnLoadCallback(drawChart);\n",
         "output": "str",
-        "x": 390,
-        "y": 620,
+        "x": 430,
+        "y": 280,
         "wires": [
             [
                 "1689bba6a62045f2"
@@ -897,8 +856,8 @@
         "syntax": "plain",
         "template": "\n        tree = new google.visualization.TreeMap(document.getElementById('chart_div'));\n\n        var options = {\n          minColor: '#e7711c',\n          midColor: '#fff',\n          maxColor: '#4374e0',\n          showScale: true,\n          generateTooltip: showFullTooltip\n        };\n\n        tree.draw(data, options);\n        \n        function showFullTooltip(row, size, value) {\n          var retorno = \n               '<div style=\"background:#fd9; padding:10px; border-style:solid\">' +\n                '<span style=\"font-family:Courier\"><b>' + data.getValue(row, 0) + '</b> ' + \n                '<br><b>Total de Ocorrências: </b>' + data.getValue(row, 2) ;\n          if (data.getValue(row, 1) === 'Global'){\n            retorno +=  '<br><b>Total de Palavras: </b>'  + data.getValue(row, 3) ;\n          }else{\n\n          }\n          retorno +=  ' </div>'\n          return retorno;\n        }\n\n      }\n    </script>\n",
         "output": "str",
-        "x": 630,
-        "y": 620,
+        "x": 670,
+        "y": 280,
         "wires": [
             [
                 "01a3c5c8b4e99c8b"
@@ -916,45 +875,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 850,
-        "y": 620,
+        "x": 890,
+        "y": 280,
         "wires": [
             [
                 "9eef83e95a0149ef"
             ]
         ]
-    },
-    {
-        "id": "b9f85338b0cf6e56",
-        "type": "debug",
-        "z": "e0b7f874cc0843e8",
-        "name": "debug 18",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1060,
-        "y": 760,
-        "wires": []
-    },
-    {
-        "id": "6ce7459a02f34f3b",
-        "type": "debug",
-        "z": "e0b7f874cc0843e8",
-        "name": "debug 19",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 620,
-        "y": 740,
-        "wires": []
     },
     {
         "id": "cca00b531d24a3b6",
@@ -969,7 +896,7 @@
         "encoding": "none",
         "allProps": false,
         "x": 530,
-        "y": 800,
+        "y": 400,
         "wires": [
             [
                 "9fce2112370a9aca"
@@ -988,7 +915,7 @@
         "finalize": "",
         "libs": [],
         "x": 740,
-        "y": 800,
+        "y": 400,
         "wires": [
             [
                 "f14366bfece54b8f"
@@ -1008,8 +935,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1180,
-        "y": 800,
+        "x": 1540,
+        "y": 400,
         "wires": []
     },
     {
@@ -1023,30 +950,13 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
-        "y": 680,
+        "x": 560,
+        "y": 340,
         "wires": [
             [
                 "9bf57032315d2050"
             ]
         ]
-    },
-    {
-        "id": "e26c7cd2fd8bd6a9",
-        "type": "debug",
-        "z": "e0b7f874cc0843e8",
-        "name": "debug 20",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1160,
-        "y": 80,
-        "wires": []
     },
     {
         "id": "6b008a5d51f83947",
@@ -1059,8 +969,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 930,
-        "y": 940,
+        "x": 250,
+        "y": 460,
         "wires": [
             [
                 "de7b5c647424ea6f"
